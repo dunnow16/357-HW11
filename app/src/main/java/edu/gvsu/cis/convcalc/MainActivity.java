@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseReference;
+
 import org.joda.time.DateTime;
 
 import edu.gvsu.cis.convcalc.UnitsConverter.LengthUnits;
@@ -23,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     public static int SETTINGS_RESULT = 1;
     public static int HISTORY_RESULT = 2;
 
-    private enum Mode {Length, Volume};
+    public enum Mode {Length, Volume};
 
     private Mode mode = Mode.Length;
     private Button calcButton;
@@ -37,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView toUnits;
     private TextView fromUnits;
     private TextView title;
+
+    DatabaseReference topRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
                     Double cVal = UnitsConverter.convert(dVal, fUnits, tUnits);
                     dest.setText(Double.toString(cVal));
                     HistoryContent.HistoryItem item = new HistoryContent.HistoryItem(dVal, cVal, mode.toString(),
-                            fUnits.toString(), tUnits.toString(), DateTime.now());
+                            fUnits.toString(), tUnits.toString(), DateTime.now().toString());
                     HistoryContent.addItem(item);
                     break;
                 case Volume:
@@ -146,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
                     Double vcVal = UnitsConverter.convert(vdVal, vfUnits, vtUnits);
                     dest.setText(Double.toString(vcVal));
                     HistoryContent.HistoryItem item2 = new HistoryContent.HistoryItem(vdVal, vcVal, mode.toString(),
-                            vfUnits.toString(), vtUnits.toString(), DateTime.now());
+                            vfUnits.toString(), vtUnits.toString(), DateTime.now().toString());
                     HistoryContent.addItem(item2);
                     break;
             }
