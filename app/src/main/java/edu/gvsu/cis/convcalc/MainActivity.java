@@ -152,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
                     HistoryContent.HistoryItem item = new HistoryContent.HistoryItem(dVal, cVal, mode.toString(),
                             fUnits.toString(), tUnits.toString(), fmt.print(DateTime.now()));
                     HistoryContent.addItem(item);
-                    topRef.push().setValue(item);
+                    topRef.push().setValue(item);  // add data to DB?
                     break;
                 case Volume:
                     VolumeUnits vtUnits, vfUnits;
