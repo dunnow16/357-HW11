@@ -13,8 +13,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormatter;
+import org.joda.time.format.ISODateTimeFormat;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import edu.gvsu.cis.convcalc.UnitsConverter.LengthUnits;
 import edu.gvsu.cis.convcalc.UnitsConverter.VolumeUnits;
@@ -35,12 +41,19 @@ public class MainActivity extends AppCompatActivity {
     private EditText toField;
     private EditText fromField;
 
-
     private TextView toUnits;
     private TextView fromUnits;
     private TextView title;
 
+    // DB vars
     DatabaseReference topRef;
+    public static List<HistoryContent.HistoryItem> allHistory;
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        topRef = FirebaseDatabase.getInstance().getReference();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-//
+        allHistory = new ArrayList<HistoryContent.HistoryItem>();
     }
 
     private void doConversion() {
@@ -120,6 +133,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if (dest != null) {
+            DateTimeFormatter fmt = ISODateTimeFormat.dateTime();
             switch(mode) {
                 case Length:
                     LengthUnits tUnits, fUnits;
@@ -133,9 +147,12 @@ public class MainActivity extends AppCompatActivity {
                     Double dVal = Double.parseDouble(val);
                     Double cVal = UnitsConverter.convert(dVal, fUnits, tUnits);
                     dest.setText(Double.toString(cVal));
+//                    HistoryContent.HistoryItem item = new HistoryContent.HistoryItem(dVal, cVal, mode.toString(),
+//                            fUnits.toString(), tUnits.toString(), DateTime.now().toString());
                     HistoryContent.HistoryItem item = new HistoryContent.HistoryItem(dVal, cVal, mode.toString(),
-                            fUnits.toString(), tUnits.toString(), DateTime.now().toString());
+                            fUnits.toString(), tUnits.toString(), fmt.print(DateTime.now()));
                     HistoryContent.addItem(item);
+                    topRef.push().setValue(item);
                     break;
                 case Volume:
                     VolumeUnits vtUnits, vfUnits;
@@ -149,9 +166,12 @@ public class MainActivity extends AppCompatActivity {
                     Double vdVal = Double.parseDouble(val);
                     Double vcVal = UnitsConverter.convert(vdVal, vfUnits, vtUnits);
                     dest.setText(Double.toString(vcVal));
+//                    HistoryContent.HistoryItem item2 = new HistoryContent.HistoryItem(vdVal, vcVal, mode.toString(),
+//                            vfUnits.toString(), vtUnits.toString(), DateTime.now().toString());
                     HistoryContent.HistoryItem item2 = new HistoryContent.HistoryItem(vdVal, vcVal, mode.toString(),
-                            vfUnits.toString(), vtUnits.toString(), DateTime.now().toString());
+                            vfUnits.toString(), vtUnits.toString(), fmt.print(DateTime.now()));
                     HistoryContent.addItem(item2);
+                    topRef.push().setValue(item2);
                     break;
             }
         }
