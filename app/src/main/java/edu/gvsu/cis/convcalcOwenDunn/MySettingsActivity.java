@@ -1,4 +1,4 @@
-package edu.gvsu.cis.convcalc;
+package edu.gvsu.cis.convcalcOwenDunn;
 
 import android.content.Intent;
 import android.os.Bundle;

@@ -1,4 +1,4 @@
-package edu.gvsu.cis.convcalc;
+package edu.gvsu.cis.convcalcOwenDunn;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -7,14 +7,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.truizlop.sectionedrecyclerview.HeaderViewHolder;
 import com.truizlop.sectionedrecyclerview.SectionedRecyclerViewAdapter;
 
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
-import edu.gvsu.cis.convcalc.HistoryFragment.OnListFragmentInteractionListener;
-import edu.gvsu.cis.convcalc.dummy.HistoryContent.HistoryItem;
+import edu.gvsu.cis.convcalcOwenDunn.HistoryFragment.OnListFragmentInteractionListener;
+import edu.gvsu.cis.convcalcOwenDunn.dummy.HistoryContent.HistoryItem;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,10 +38,10 @@ public class HistoryAdapter extends
         //mValues = items;
         this.dayValues = new HashMap<String,List<HistoryItem>>();
         this.sectionHeaders = new ArrayList<String>();
-        DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd");
+        //DateTimeFormatter fmt = DateTimeFormat.forPattern("yyyy-MM-dd");
 
         for (HistoryItem hi : items) {
-            String key = "Entries for " + hi.timestamp;  //fmt.print(hi.timestamp);  // todo check if this works
+            String key = "Entries for " + hi.timestamp;
             List<HistoryItem> list = this.dayValues.get(key);
             if (list == null) {
                 list = new ArrayList<HistoryItem>();

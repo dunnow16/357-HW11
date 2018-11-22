@@ -1,4 +1,4 @@
-package edu.gvsu.cis.convcalc;
+package edu.gvsu.cis.convcalcOwenDunn;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,7 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-import edu.gvsu.cis.convcalc.dummy.HistoryContent;
+import edu.gvsu.cis.convcalcOwenDunn.dummy.HistoryContent;
 
 public class HistoryActivity extends AppCompatActivity implements HistoryFragment.OnListFragmentInteractionListener {
 

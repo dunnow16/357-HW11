@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="edu.gvsu.cis.convcalc">
+    package="edu.gvsu.cis.convcalcOwenDunn">
 
     <application
-        android:name=".ConversionApp"
+        android:name="edu.gvsu.cis.convcalcOwenDunn.ConversionApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".MainActivity">
+        <activity android:name="edu.gvsu.cis.convcalcOwenDunn.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,11 +19,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MySettingsActivity"
+            android:name="edu.gvsu.cis.convcalcOwenDunn.MySettingsActivity"
             android:label="@string/title_activity_my_settings"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".HistoryActivity"
+            android:name="edu.gvsu.cis.convcalcOwenDunn.HistoryActivity"
             android:label="@string/title_activity_history"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>

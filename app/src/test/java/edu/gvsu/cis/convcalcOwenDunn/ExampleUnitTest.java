@@ -1,4 +1,4 @@
-package edu.gvsu.cis.convcalc;
+package edu.gvsu.cis.convcalcOwenDunn;
 
 import org.junit.Test;
 
