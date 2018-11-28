@@ -1,3 +1,2 @@
-# CIS 357: HW10 - Working with Firebase 
-Owen Dunn and Brandon Griggs </br>
-11/26/18
+# 357-HW11: Integrating a Web API in Android
+Owen Dunn and Brandon Griggs
