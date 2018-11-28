@@ -3,15 +3,14 @@
     package="edu.gvsu.cis.convcalcOwenDunn">
 
     <application
-        android:name="edu.gvsu.cis.convcalcOwenDunn.ConversionApp"
+        android:name=".ConversionApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name="edu.gvsu.cis.convcalcOwenDunn.MainActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,13 +18,17 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="edu.gvsu.cis.convcalcOwenDunn.MySettingsActivity"
+            android:name=".MySettingsActivity"
             android:label="@string/title_activity_my_settings"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="edu.gvsu.cis.convcalcOwenDunn.HistoryActivity"
+            android:name=".HistoryActivity"
             android:label="@string/title_activity_history"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <service
+            android:name=".webservice.WeatherService"
+            android:exported="false"></service>
     </application>
 
 </manifest>

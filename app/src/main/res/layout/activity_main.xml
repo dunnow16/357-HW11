@@ -132,5 +132,29 @@
         app:layout_constraintStart_toEndOf="@+id/clearButton"
         app:layout_constraintTop_toTopOf="@+id/clearButton" />
 
+    <ImageView
+        android:id="@+id/weatherIconImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/clear_day"
+        tools:layout_editor_absoluteX="28dp"
+        tools:layout_editor_absoluteY="305dp" />
+
+    <TextView
+        android:id="@+id/temperatureView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        tools:layout_editor_absoluteX="193dp"
+        tools:layout_editor_absoluteY="305dp" />
+
+    <TextView
+        android:id="@+id/currentView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        tools:layout_editor_absoluteX="193dp"
+        tools:layout_editor_absoluteY="414dp" />
+
 
 </android.support.constraint.ConstraintLayout>

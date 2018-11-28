@@ -1,4 +1,5 @@
 package edu.gvsu.cis.convcalcOwenDunn;
+//package webservice;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.database.ChildEventListener;
@@ -34,6 +36,9 @@ public class MainActivity extends AppCompatActivity {
     public static int SETTINGS_RESULT = 1;
     public static int HISTORY_RESULT = 2;
 
+    public MainActivity() {
+    }
+
     public enum Mode {Length, Volume};
 
     private Mode mode = Mode.Length;
@@ -47,6 +52,10 @@ public class MainActivity extends AppCompatActivity {
     private TextView toUnits;
     private TextView fromUnits;
     private TextView title;
+
+    private TextView temperature;
+    private TextView current;
+    private ImageView weatherIcon;
 
     // DB vars
     public DatabaseReference topRef;
@@ -82,6 +91,10 @@ public class MainActivity extends AppCompatActivity {
         toUnits = findViewById(R.id.toUnits);
 
         title = findViewById(R.id.title);
+
+        temperature = findViewById(R.id.temperatureView);
+        current = findViewById(R.id.currentView);
+        weatherIcon = findViewById(R.id.weatherIconImageView);
 
         allHistory = new ArrayList<HistoryContent.HistoryItem>();
 
