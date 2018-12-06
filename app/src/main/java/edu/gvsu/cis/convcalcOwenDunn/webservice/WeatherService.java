@@ -1,5 +1,5 @@
 package edu.gvsu.cis.convcalcOwenDunn.webservice;
-package edu.gvsu.cis.webservice;
+//package edu.gvsu.cis.webservice;
 
 import android.app.IntentService;
 import android.content.Intent;
@@ -27,7 +27,7 @@ public class WeatherService extends IntentService {
     private static final String TAG = "WeatherService";
     // IntentService can perform, e.g. ACTION_FETCH_NEW_ITEMS
     private static final String ACTION_WEATHER_AT = "cis.gvsu.edu.webservice.action.WEATHER_AT";
-    private static final String BASE_URL = "https://api.darksky.net/forecast/YOUR-DARK-SKY-API-KEY-GOES-HERE";
+    private static final String BASE_URL = "https://api.darksky.net/forecast/c0542c060f115399a2fc2af578facc41";  // uses my api key
     public static final String BROADCAST_WEATHER = "cis.gvsu.edu.webservice.action.BROADCAST";
     private static final String EXTRA_KEY = "cis.gvsu.edu.webservice.extra.KEY";
     private static final String EXTRA_LAT = "cis.gvsu.edu.webservice.extra.LAT";
@@ -46,9 +46,11 @@ public class WeatherService extends IntentService {
      */
     public static void startGetWeather(Context context, String lat, String lng, String key) {
         Intent intent = new Intent(context, WeatherService.class);
+        //String time = ;
         intent.setAction(ACTION_WEATHER_AT);
         intent.putExtra(EXTRA_LAT, lat);
         intent.putExtra(EXTRA_LNG, lng);
+        //intent.putExtra(EXTRA_TIME, time);
         intent.putExtra(EXTRA_KEY, key);
         context.startService(intent);
     }
@@ -74,7 +76,8 @@ public class WeatherService extends IntentService {
     private void fetchWeatherData(String key, String lat, String lon, String time) {
         try {
             // TODO: Format the url based on the input params
-            URL url = new URL(BASE_URL + String.format("/%g,%g,%d", lat, lon, time));
+            // time use? works without (fitting site example)
+            URL url = new URL(BASE_URL + "/" + lat + "," + lon /*+ "," + time String.format("/%g,%g,%d", lat, lon, time)*/);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setReadTimeout(5000 /* milliseconds */);
             conn.setConnectTimeout(10000 /* milliseconds */);
@@ -98,13 +101,14 @@ public class WeatherService extends IntentService {
                 // TODO: extract the values you need out of current
                 String icon = current.getString("icon");
                 double temp = current.getDouble("temperature");
+                String summary = current.getString("summary");
                 Intent result = new Intent(BROADCAST_WEATHER);
 
                 // TODO: use putExtra to add the extracted values to your broadcast
-                result.putExtra(EXTRA_KEY, key);
-                result.putExtra(EXTRA_LAT, lat);
-                result.putExtra(EXTRA_TIME, lon);
-                result.putExtra("KEY", time);
+                result.putExtra("temp", temp);
+                result.putExtra("summary", summary);
+                result.putExtra("icon", icon);
+                result.putExtra("KEY", key);
                 LocalBroadcastManager.getInstance(this).sendBroadcast(result);
             }
         } catch (MalformedURLException e) {

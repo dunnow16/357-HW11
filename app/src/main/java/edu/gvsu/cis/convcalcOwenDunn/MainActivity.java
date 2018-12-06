@@ -1,10 +1,13 @@
 package edu.gvsu.cis.convcalcOwenDunn;
-//package webservice;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,6 +33,9 @@ import java.util.List;
 import edu.gvsu.cis.convcalcOwenDunn.UnitsConverter.LengthUnits;
 import edu.gvsu.cis.convcalcOwenDunn.UnitsConverter.VolumeUnits;
 import edu.gvsu.cis.convcalcOwenDunn.dummy.HistoryContent;
+import edu.gvsu.cis.convcalcOwenDunn.webservice.WeatherService;
+
+import static edu.gvsu.cis.convcalcOwenDunn.webservice.WeatherService.BROADCAST_WEATHER;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -61,18 +67,41 @@ public class MainActivity extends AppCompatActivity {
     public DatabaseReference topRef;
     public static List<HistoryContent.HistoryItem> allHistory;
 
+    private BroadcastReceiver weatherReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Bundle bundle = intent.getExtras();
+            double temp = bundle.getDouble("temp");
+            String summary = bundle.getString("summary");
+            String icon = bundle.getString("icon").replaceAll("-", "_");
+            String key = bundle.getString("KEY");
+            int resID = getResources().getIdentifier(icon , "drawable", getPackageName());
+            //setWeatherViews(View.VISIBLE);
+            if (key.equals("p1"))  {
+                current.setText(summary);
+                temperature.setText(Double.toString(temp));
+                weatherIcon.setImageResource(resID);
+            }
+        }
+    };
+
     @Override
     public void onResume(){
         super.onResume();
         allHistory.clear();
         topRef = FirebaseDatabase.getInstance().getReference("history");
         topRef.addChildEventListener(chEvListener);
+
+        // Register receiver for broadcasts:
+        IntentFilter weatherFilter = new IntentFilter(BROADCAST_WEATHER);
+        LocalBroadcastManager.getInstance(this).registerReceiver(weatherReceiver, weatherFilter);
     }
 
     @Override
     public void onPause(){
         super.onPause();
         topRef.removeEventListener(chEvListener);
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(weatherReceiver);
     }
 
     @Override
@@ -99,7 +128,14 @@ public class MainActivity extends AppCompatActivity {
         allHistory = new ArrayList<HistoryContent.HistoryItem>();
 
         calcButton.setOnClickListener(v -> {
+            WeatherService.startGetWeather(this, "42.963686", "-85.888595", "p1");
             doConversion();
+
+            // update returned data from api
+//            temperature.setText();
+//            current.setText();
+//            weatherIcon.setImageIcon();
+            //WeatherService.startGetWeather(this, Double.toString(lat));
         });
 
         clearButton.setOnClickListener(v -> {
