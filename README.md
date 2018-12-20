@@ -1,2 +1,2 @@
-# 357-HW11: Integrating a Web API in Android
+# Integrating a Web API in Android
 Owen Dunn and Brandon Griggs
